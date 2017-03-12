@@ -3,37 +3,62 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Cities2Visit.Web.Repositories;
+using Cities2Visit.Web.ViewModels;
 
 namespace Cities2Visit.Web.Controllers
 {
     [Route("api/[controller]")]
     public class CitiesController : Controller
     {
+        ICitiesRepository _citiesRepository;
+
+        public CitiesController(ICitiesRepository citiesRepository)
+        {
+            _citiesRepository = citiesRepository;
+        }
+        // GET api/cities
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(_citiesRepository.GetAllCities());
         }
 
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/values/5
+        [HttpGet("{cityName}")]
+        public IActionResult Get(string cityName)
         {
-            return "value";
+            return Ok(_citiesRepository.GetCityByName(cityName));
         }
 
+        // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]CityViewModel value)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            _citiesRepository.AddCity(value);
+            return Ok();
         }
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        // PUT api/values/5
+        [HttpPut("{cityName}")]
+        public IActionResult Put(string cityName, [FromBody]CityViewModel value)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            _citiesRepository.EditCity(value);
+            return Ok();
         }
 
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // DELETE api/values/5
+        [HttpDelete("{cityName}")]
+        public IActionResult Delete(string cityName)
         {
+            _citiesRepository.DeleteCity(cityName);
+            return Ok();
         }
     }
 }
