@@ -7,6 +7,6 @@
 
         $locationProvider.html5Mode(false);
 
-    })
+    });
 
 })(window.angular);

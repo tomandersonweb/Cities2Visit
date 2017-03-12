@@ -43,7 +43,6 @@ namespace Cities2Visit.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
             }
             else
             {

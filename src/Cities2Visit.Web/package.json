@@ -16,6 +16,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-inject": "^4.2.0",
     "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^2.1.0"
+    "gulp-uglify": "^2.1.0",
+    "ng-toast": "^2.0.0"
   }
 }

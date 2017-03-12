@@ -1,0 +1,37 @@
+﻿<p class="text-right">
+    <button class="btn btn-default" ng-model="model.addCity" ng-click="model.addCity === false ? model.addCity = true : model.addCity = false"><span class="glyphicon glyphicon-plus"></span> Add New City</button>
+</p>    
+<p>4 Visited / 2 Not Visited</p>
+
+
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>City</th>
+            <th>Country</th>
+            <th>Attractions</th>
+            <th>Visited</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-hide="model.addCity" class="success">
+            <td><input class="form-control" type="text" placeholder="City name" ng-model="new.city" /></td>
+            <td><input class="form-control" type="text" placeholder="Country" ng-model="new.country" /></td>
+            <td><input class="form-control" type="text" placeholder="Attractions" ng-model="new.attractions" /></td>
+            <td><button class="btn btn-default"><span class="glyphicon glyphicon-save"></span> Save</button>
+        </tr>       
+        <tr ng-repeat="city in model.cities ">
+            <td>{{city.city}}</td>
+            <td>{{city.country}}</td>
+            <td>
+                <ul>
+                    <li ng-repeat="attraction in city.attractions">{{attraction}}</li>
+                </ul>
+            </td>
+            <td>
+            <button class="btn btn-default"><span class="glyphicon glyphicon-ok" ng-class="{'glyphicon glyphicon-checked': city.visited === true, 'glyphicon glyphicon-unchecked': city.visited===false}"></span></button>
+        </tr>
+    </tbody>
+</table>
+
