@@ -8,7 +8,7 @@
             getCities: getCities,
             addCity: addCity,
             editCity: editCity,
-            getQtyVisitedCities: getQtyVisitedCities
+            countVisitedCities: countVisitedCities
         };
 
         function getCities() {
@@ -41,7 +41,7 @@
                 });
         }
 
-        function getQtyVisitedCities() {
+        function countVisitedCities() {
             return $http.get(config.baseUri + 'cities/visited')
                 .then(function (response) {
                     return response.data;

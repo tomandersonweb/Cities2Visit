@@ -97,5 +97,11 @@ namespace Cities2Visit.Web.Repositories
             _cache.Set("cities", _cities, cacheOptions);
         }
 
+        public int CountVisitedCities()
+        {
+            var count = _cities.Where(x => x.Visited).Count();
+            return count;
+        }
+
     }
 }

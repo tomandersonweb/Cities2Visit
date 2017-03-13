@@ -16,7 +16,7 @@
 
         model.$onInit = function () {
             model.listCities();
-            model.getQtyVisitedCities();
+            model.countVisitedCities();
         };
 
         model.listCities = function () {
@@ -39,10 +39,10 @@
                 });
         };
 
-        model.getQtyVisitedCities = function () {
-            citiesService.getQtyVisitedCities()
+        model.countVisitedCities = function () {
+            citiesService.countVisitedCities()
                 .then(function (response) {
-                    model.getQtyVisitedCities = response;
+                    model.visitedCount = response;
                 })
                 .catch(function (error) {
                     //ngToast.danger(error);
@@ -62,7 +62,7 @@
             getCities: getCities,
             addCity: addCity,
             editCity: editCity,
-            getQtyVisitedCities: getQtyVisitedCities
+            countVisitedCities: countVisitedCities
         };
 
         function getCities() {
@@ -95,7 +95,7 @@
                 });
         }
 
-        function getQtyVisitedCities() {
+        function countVisitedCities() {
             return $http.get(config.baseUri + 'cities/visited')
                 .then(function (response) {
                     return response.data;

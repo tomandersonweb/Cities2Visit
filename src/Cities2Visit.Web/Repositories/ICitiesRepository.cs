@@ -17,5 +17,7 @@ namespace Cities2Visit.Web.Repositories
         void AddCity(CityViewModel city);
 
         void DeleteCity(string cityName);
+
+        int CountVisitedCities();
     }
 }

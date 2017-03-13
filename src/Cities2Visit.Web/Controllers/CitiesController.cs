@@ -17,21 +17,26 @@ namespace Cities2Visit.Web.Controllers
         {
             _citiesRepository = citiesRepository;
         }
-        // GET api/cities
+
         [HttpGet]
         public IActionResult Get()
         {
             return Ok(_citiesRepository.GetAllCities());
         }
 
-        // GET api/values/5
+        [HttpGet("visited")]
+        public IActionResult CountVisitedCities()
+        {
+            var count = _citiesRepository.CountVisitedCities();
+            return Ok(count);
+        }
+
         [HttpGet("{cityName}")]
         public IActionResult Get(string cityName)
         {
             return Ok(_citiesRepository.GetCityByName(cityName));
         }
 
-        // POST api/values
         [HttpPost]
         public IActionResult Post([FromBody]CityViewModel value)
         {
@@ -42,7 +47,6 @@ namespace Cities2Visit.Web.Controllers
             return Ok();
         }
 
-        // PUT api/values/5
         [HttpPut("{cityName}")]
         public IActionResult Put(string cityName, [FromBody]CityViewModel value)
         {
@@ -53,7 +57,6 @@ namespace Cities2Visit.Web.Controllers
             return Ok();
         }
 
-        // DELETE api/values/5
         [HttpDelete("{cityName}")]
         public IActionResult Delete(string cityName)
         {
