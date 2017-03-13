@@ -21,8 +21,8 @@
                 });
         }
 
-        function addCity(name) {
-            return $http.post(config.baseUri + 'cities/' + name)
+        function addCity(city) {
+            return $http.post(config.baseUri + 'cities/', city)
                 .then(function (response) {
                     return response.data;
                 })
@@ -32,7 +32,7 @@
         }
 
         function editCity(name, city) {
-            return $http.put(config.baseUri + 'cities/' + name)
+            return $http.put(config.baseUri + 'cities/' + name, city)
                 .then(function (response) {
                     return response.data;
                 })

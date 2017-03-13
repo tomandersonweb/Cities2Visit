@@ -38,22 +38,25 @@ namespace Cities2Visit.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody]CityViewModel value)
+        public IActionResult Post([FromBody]CityViewModel city)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            _citiesRepository.AddCity(value);
+            if (_citiesRepository.GetCityByName(city.City) != null)
+                return BadRequest();
+
+            _citiesRepository.AddCity(city);
             return Ok();
         }
 
         [HttpPut("{cityName}")]
-        public IActionResult Put(string cityName, [FromBody]CityViewModel value)
+        public IActionResult Put(string cityName, [FromBody]CityViewModel city)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            _citiesRepository.EditCity(value);
+            _citiesRepository.EditCity(city);
             return Ok();
         }
 

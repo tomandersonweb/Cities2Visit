@@ -8,6 +8,8 @@ namespace Cities2Visit.Web.ViewModels
 {
     public class CityViewModel
     {
+        public CityViewModel() { }
+
         [Required]
         [MinLength(2)]
         [MaxLength(128)]

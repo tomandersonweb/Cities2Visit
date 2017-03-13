@@ -11,10 +11,16 @@
     function controller(citiesService) {
 
         var model = this;
-
         model.cities = [];
 
         model.$onInit = function () {
+            model.setup();
+        };
+
+        model.setup = function () {
+            model.newCity = {};
+            model.newCity.attractions = [];
+            model.showAddCity = false;
             model.listCities();
             model.countVisitedCities();
         };
@@ -32,7 +38,7 @@
         model.addCity = function (newCity) {
             citiesService.addCity(newCity)
                 .then(function (response) {
-                    model.cities = [];
+                    model.setup();
                 })
                 .catch(function (error) {
                     //ngToast.danger(error);
@@ -43,6 +49,17 @@
             citiesService.countVisitedCities()
                 .then(function (response) {
                     model.visitedCount = response;
+                })
+                .catch(function (error) {
+                    //ngToast.danger(error);
+                });
+        };
+
+        model.setVisitedStatus = function (city) {
+            city.visited = !city.visited;
+            citiesService.editCity(city.city, city)
+                .then(function (response) {
+                    model.setup();
                 })
                 .catch(function (error) {
                     //ngToast.danger(error);
@@ -75,8 +92,8 @@
                 });
         }
 
-        function addCity(name) {
-            return $http.post(config.baseUri + 'cities/' + name)
+        function addCity(city) {
+            return $http.post(config.baseUri + 'cities/', city)
                 .then(function (response) {
                     return response.data;
                 })
@@ -86,7 +103,7 @@
         }
 
         function editCity(name, city) {
-            return $http.put(config.baseUri + 'cities/' + name)
+            return $http.put(config.baseUri + 'cities/' + name, city)
                 .then(function (response) {
                     return response.data;
                 })
